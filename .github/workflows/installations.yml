@@ -20,4 +20,4 @@ jobs:
 
     # Runs a single command using the runners shell
     - name: Test installations
-      run: sh startup.sh
+      run: sh setup.sh
