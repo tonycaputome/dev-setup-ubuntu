@@ -115,7 +115,7 @@ sudo apt update && sudo apt install vivaldi-stable
 # CHROME
 echo 'Installing chrome' 
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo dpkg -i google-chrome-stable_current_amd64.deb
+sudo apt update && sudo apt-get -f install
 
 
 echo 'Launching Vivaldi on Github so you can paste your keys'
