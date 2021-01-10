@@ -42,7 +42,7 @@ git config --global user.email $git_config_user_email
 echo 'Generating a SSH Key'
 ssh-keygen -t rsa -b 4096 -C $git_config_user_email
 ssh-add ~/.ssh/id_rsa
-cat ~/.ssh/id_rsa.pub | xclip -selection clipboard
+
 
 echo 'Installing ZSH'
 sudo apt-get install zsh -y
@@ -52,9 +52,16 @@ chsh -s $(which zsh)
 echo 'Cloning your .zshrc from gist'
 getmy .zshrc
 
-echo 'Installing Spaceship ZSH Theme'
-git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
-ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+echo 'Cloning your .p10k.zsh from gist'
+getmy .p10k.zsh
+
+# echo 'Installing Spaceship ZSH Theme'
+# git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
+# ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+# source ~/.zshrc
+
+echo 'Installing Powerlevel10k ZSH Theme'
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 source ~/.zshrc
 
 # FIRA CODE Font
@@ -104,12 +111,15 @@ wget -qO- https://repo.vivaldi.com/archive/linux_signing_key.pub | sudo apt-key 
 sudo add-apt-repository 'deb https://repo.vivaldi.com/archive/deb/ stable main' -y
 sudo apt update && sudo apt install vivaldi-stable
 
+
 # CHROME
 echo 'Installing chrome' 
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo dpkg -i google-chrome-stable_current_amd64.deb
 
+
 echo 'Launching Vivaldi on Github so you can paste your keys'
+cat ~/.ssh/id_rsa.pub | xclip -selection clipboard
 vivaldi https://github.com/settings/keys </dev/null >/dev/null 2>&1 & disown
 
 echo 'Installing Docker'
